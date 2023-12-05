@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;ReleaseSign;DebugSign;DebugWsl</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VirtualDisplay.Native\VirtualDisplay.Native.vcxproj" />
+    <ProjectReference Include="..\VirtualDisplay.Unity\VirtualDisplay.Unity.csproj" />
+  </ItemGroup>
+</Project>

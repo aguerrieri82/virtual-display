@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;ReleaseSign;DebugSign;DebugWsl</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\VirtualDisplay.Decoder.Native\bin\linux-x64\VirtualDisplay.Decoder.Native.so" Link="VirtualDisplay.Decoder.Native.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\VirtualDisplay.Decoder.Native\bin\x64\Debug\VirtualDisplay.Decoder.Native.dll" Link="VirtualDisplay.Decoder.Native.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  
+</Project>
