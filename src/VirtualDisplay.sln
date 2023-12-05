@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualDisplay.Native", "Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDisplay.Test", "VirtualDisplay.Test\VirtualDisplay.Test.csproj", "{F68F4FDC-447F-448B-B91C-E99725C8DA97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDisplay.App", "VirtualDisplay.App\VirtualDisplay.App.csproj", "{E40455F8-2577-4900-9EC3-5F6FC8316474}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDisplay.Unity", "VirtualDisplay.Unity\VirtualDisplay.Unity.csproj", "{4F4C20EE-D89A-40D0-9AB9-A6FAE9C1A935}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDisplay.Abstraction", "VirtualDisplay.Abstraction\VirtualDisplay.Abstraction.csproj", "{43F852A5-94D4-493C-A472-1001854E2CE4}"
@@ -18,6 +16,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualDisplay.Decoder.Native", "VirtualDisplay.Decoder.Native\VirtualDisplay.Decoder.Native.vcxproj", "{5F78A8F5-3587-4727-9EE7-700F5BEE6972}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDisplay.Core", "VirtualDisplay.Core\VirtualDisplay.Core.csproj", "{4194379A-C8A1-4BDC-9A97-1C28F1C4E3FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2FCE5441-7101-45B3-8C89-E462689E6C0C}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,36 +147,6 @@ Global
 		{F68F4FDC-447F-448B-B91C-E99725C8DA97}.Release|x64.Build.0 = Release|x64
 		{F68F4FDC-447F-448B-B91C-E99725C8DA97}.Release|x86.ActiveCfg = Release|x86
 		{F68F4FDC-447F-448B-B91C-E99725C8DA97}.Release|x86.Build.0 = Release|x86
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|ARM.Build.0 = Debug|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|x64.ActiveCfg = Debug|x64
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|x64.Build.0 = Debug|x64
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|x86.ActiveCfg = Debug|x86
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Debug|x86.Build.0 = Debug|x86
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|Any CPU.ActiveCfg = DebugWsl|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|Any CPU.Build.0 = DebugWsl|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|ARM.ActiveCfg = DebugWsl|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|ARM.Build.0 = DebugWsl|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|ARM64.ActiveCfg = DebugWsl|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|ARM64.Build.0 = DebugWsl|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|x64.ActiveCfg = DebugWsl|x64
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|x64.Build.0 = DebugWsl|x64
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|x86.ActiveCfg = DebugWsl|x86
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.DebugWsl|x86.Build.0 = DebugWsl|x86
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|ARM.ActiveCfg = Release|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|ARM.Build.0 = Release|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|ARM64.Build.0 = Release|Any CPU
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|x64.ActiveCfg = Release|x64
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|x64.Build.0 = Release|x64
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|x86.ActiveCfg = Release|x86
-		{E40455F8-2577-4900-9EC3-5F6FC8316474}.Release|x86.Build.0 = Release|x86
 		{4F4C20EE-D89A-40D0-9AB9-A6FAE9C1A935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F4C20EE-D89A-40D0-9AB9-A6FAE9C1A935}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F4C20EE-D89A-40D0-9AB9-A6FAE9C1A935}.Debug|ARM.ActiveCfg = Debug|Any CPU

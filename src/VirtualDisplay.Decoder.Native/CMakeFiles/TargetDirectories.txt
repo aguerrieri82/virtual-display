@@ -1,3 +1,0 @@
-/mnt/d/Development/Personal/Git/VirtualDisplay/src/VirtualDisplay.Decoder.Native/CMakeFiles/VirtualDisplay.Decoder.Native.dir
-/mnt/d/Development/Personal/Git/VirtualDisplay/src/VirtualDisplay.Decoder.Native/CMakeFiles/edit_cache.dir
-/mnt/d/Development/Personal/Git/VirtualDisplay/src/VirtualDisplay.Decoder.Native/CMakeFiles/rebuild_cache.dir

@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -Wl,-Bsymbolic -shared -Wl,-soname,VirtualDisplay.Decoder.Native.so -o bin/linux-x64/VirtualDisplay.Decoder.Native.so CMakeFiles/VirtualDisplay.Decoder.Native.dir/H264Decoder.cpp.o CMakeFiles/VirtualDisplay.Decoder.Native.dir/dllmain.cpp.o  /usr/local/lib/libavcodec.a /usr/local/lib/libavutil.a /usr/local/lib/libswscale.a /usr/local/lib/libswresample.a 
