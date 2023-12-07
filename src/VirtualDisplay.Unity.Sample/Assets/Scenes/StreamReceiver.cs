@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -19,7 +18,6 @@ public class StreamReceiver : MonoBehaviour
     byte[] _buffer;
     int _width;
     int _height;
-    bool _connecting;
     Texture2D _texture;
     bool _newFrame;
 
@@ -35,10 +33,6 @@ public class StreamReceiver : MonoBehaviour
 
     Task _activeTask;
 
-    public StreamReceiver()
-    {
-
-    }
 
     void Start()
     {
@@ -88,9 +82,8 @@ public class StreamReceiver : MonoBehaviour
         }
         catch (Exception ex)
         {
+            Debug.LogException(ex);
             ResetClient();
-            _client.Close();
-            _client = new TcpClient();
         }
     }
 
@@ -100,7 +93,7 @@ public class StreamReceiver : MonoBehaviour
         {
             var size = _reader.ReadInt32();
 
-            System.Diagnostics.Debug.WriteLine(size);
+            Debug.Log($"New Frame size: {size}");
 
             var srcBuffer = _reader.ReadBytes(size);
 
@@ -112,6 +105,7 @@ public class StreamReceiver : MonoBehaviour
         }
         catch (Exception ex)
         {
+            Debug.LogException(ex);
             ResetClient();
         }
     }
@@ -137,11 +131,12 @@ public class StreamReceiver : MonoBehaviour
         if (_newFrame)
         {
             lock (_buffer)
+            {
                 _texture.SetPixelData(_buffer, 0);
+                _newFrame = false;
+            }
 
             _texture.Apply(true);
-
-            _newFrame = false;
         }
 
         if (!_client.Connected)
