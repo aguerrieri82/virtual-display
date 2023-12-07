@@ -268,7 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e10d391bc6900b40a6a0c2d043613ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _material: {fileID: 2100000, guid: 3e0fbf0de0d00054b8b27ad90c07f312, type: 2}
+  _material: {fileID: 0}
+  _host: localhost
+  _port: 6666
 --- !u!23 &310859901
 MeshRenderer:
   m_ObjectHideFlags: 0

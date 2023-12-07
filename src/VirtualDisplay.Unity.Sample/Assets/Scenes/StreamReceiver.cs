@@ -8,10 +8,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEditor;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using VirtualDisplay;
 using VirtualDisplay.Unity;
 
 public class StreamReceiver : MonoBehaviour
@@ -46,21 +43,28 @@ public class StreamReceiver : MonoBehaviour
     void Start()
     {
         _decoder = new H264Decoder();
-        
+
+        if (_material == null)
+            _material = gameObject.GetComponent<MeshRenderer>().material;
+
         ResetClient();
 
-        EditorApplication.playModeStateChanged += OnPlayModeChanged;
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.playModeStateChanged += OnPlayModeChanged;
+#endif
     }
 
-    private void OnPlayModeChanged(PlayModeStateChange obj)
+#if UNITY_EDITOR
+    private void OnPlayModeChanged(UnityEditor.PlayModeStateChange obj)
     {
-        if (obj == PlayModeStateChange.ExitingPlayMode)
+        if (obj == UnityEditor.PlayModeStateChange.ExitingPlayMode)
         {
             if (_client != null && _client.Connected)
                 ResetClient();
         }
     }
 
+#endif
 
     async Task ConnectAsync()
     {
@@ -82,7 +86,7 @@ public class StreamReceiver : MonoBehaviour
             _material.mainTexture = _texture;
 
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             ResetClient();
             _client.Close();
@@ -128,6 +132,7 @@ public class StreamReceiver : MonoBehaviour
     {
         if (_activeTask != null && !_activeTask.IsCompleted)
             return;
+
 
         if (_newFrame)
         {
