@@ -5,7 +5,7 @@ project(
   VERSION 1.0
   LANGUAGES CXX)
 
-  set(ffmpegBase "/usr/local")
+set(ffmpegBase "${PROJECT_SOURCE_DIR}/../../lib/ffmpeg-h264/linux/")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/linux-x64/")
 

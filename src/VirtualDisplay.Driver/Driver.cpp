@@ -484,26 +484,26 @@ IndirectDeviceContext::~IndirectDeviceContext()
 
 void IndirectDeviceContext::InitAdapter()
 {
-    IDDCX_ADAPTER_CAPS AdapterCaps = {};
-    AdapterCaps.Size = sizeof(AdapterCaps);
+    IDDCX_ADAPTER_CAPS adapterCaps = {};
+    adapterCaps.Size = sizeof(adapterCaps);
 
     // Declare basic feature support for the adapter (required)
-    AdapterCaps.MaxMonitorsSupported = 5;
-    AdapterCaps.EndPointDiagnostics.Size = sizeof(AdapterCaps.EndPointDiagnostics);
-    AdapterCaps.EndPointDiagnostics.GammaSupport = IDDCX_FEATURE_IMPLEMENTATION_NONE;
-    AdapterCaps.EndPointDiagnostics.TransmissionType = IDDCX_TRANSMISSION_TYPE_WIRED_OTHER;
+    adapterCaps.MaxMonitorsSupported = 5;
+    adapterCaps.EndPointDiagnostics.Size = sizeof(adapterCaps.EndPointDiagnostics);
+    adapterCaps.EndPointDiagnostics.GammaSupport = IDDCX_FEATURE_IMPLEMENTATION_NONE;
+    adapterCaps.EndPointDiagnostics.TransmissionType = IDDCX_TRANSMISSION_TYPE_WIRED_OTHER;
 
     // Declare your device strings for telemetry (required)
-    AdapterCaps.EndPointDiagnostics.pEndPointFriendlyName = L"Virtual Display Device";
-    AdapterCaps.EndPointDiagnostics.pEndPointManufacturerName = L"Eusoft";
-    AdapterCaps.EndPointDiagnostics.pEndPointModelName = L"Virtual Display Model";
+    adapterCaps.EndPointDiagnostics.pEndPointFriendlyName = L"Virtual Display Device";
+    adapterCaps.EndPointDiagnostics.pEndPointManufacturerName = L"Eusoft";
+    adapterCaps.EndPointDiagnostics.pEndPointModelName = L"Virtual Display Model";
 
     // Declare your hardware and firmware versions (required)
     IDDCX_ENDPOINT_VERSION Version = {};
     Version.Size = sizeof(Version);
     Version.MajorVer = 1;
-    AdapterCaps.EndPointDiagnostics.pFirmwareVersion = &Version;
-    AdapterCaps.EndPointDiagnostics.pHardwareVersion = &Version;
+    adapterCaps.EndPointDiagnostics.pFirmwareVersion = &Version;
+    adapterCaps.EndPointDiagnostics.pHardwareVersion = &Version;
 
     // Initialize a WDF context that can store a pointer to the device context object
     WDF_OBJECT_ATTRIBUTES Attr;
@@ -511,7 +511,7 @@ void IndirectDeviceContext::InitAdapter()
 
     IDARG_IN_ADAPTER_INIT AdapterInit = {};
     AdapterInit.WdfDevice = m_WdfDevice;
-    AdapterInit.pCaps = &AdapterCaps;
+    AdapterInit.pCaps = &adapterCaps;
     AdapterInit.ObjectAttributes = &Attr;
 
     // Start the initialization of the adapter, which will trigger the AdapterFinishInit callback later
@@ -537,15 +537,15 @@ void IndirectDeviceContext::DisconnectMonitor(UINT ConnectorIndex) {
     IddCxMonitorDeparture(monitors[ConnectorIndex]->Monitor);
 }
 
-void IndirectDeviceContext::ConnectMonitor(UINT ConnectorIndex)
+void IndirectDeviceContext::ConnectMonitor(UINT connectorIndex)
 {
     NTSTATUS Status;
 
-    Log("ConnectMonitor: "); Log(std::to_string(ConnectorIndex)); Log("\n");
+    Log("ConnectMonitor: "); Log(std::to_string(connectorIndex)); Log("\n");
 
-    if (ConnectorIndex >= monitors.size())
+    if (connectorIndex >= monitors.size())
     {
-        monitors.resize(ConnectorIndex + 1);
+        monitors.resize(connectorIndex + 1);
 
         Log("CreateMonitor: "); Log(std::to_string(monitors.size())); Log("\n");
 
@@ -556,7 +556,7 @@ void IndirectDeviceContext::ConnectMonitor(UINT ConnectorIndex)
         IDDCX_MONITOR_INFO MonitorInfo = {};
         MonitorInfo.Size = sizeof(MonitorInfo);
         MonitorInfo.MonitorType = DISPLAYCONFIG_OUTPUT_TECHNOLOGY_HDMI;
-        MonitorInfo.ConnectorIndex = ConnectorIndex;
+        MonitorInfo.ConnectorIndex = connectorIndex;
         MonitorInfo.MonitorDescription.Size = sizeof(MonitorInfo.MonitorDescription);
         MonitorInfo.MonitorDescription.Type = IDDCX_MONITOR_DESCRIPTION_TYPE_EDID;
         MonitorInfo.MonitorDescription.DataSize = 0;
@@ -579,17 +579,17 @@ void IndirectDeviceContext::ConnectMonitor(UINT ConnectorIndex)
             auto* pMonitorContextWrapper = WdfObjectGet_IndirectMonitorContextWrapper(MonitorCreateOut.MonitorObject);
             pMonitorContextWrapper->pContext = new IndirectMonitorContext(MonitorCreateOut.MonitorObject);
 
-            monitors[ConnectorIndex] = pMonitorContextWrapper->pContext;
+            monitors[connectorIndex] = pMonitorContextWrapper->pContext;
         }
     }
 
     // Tell the OS that the monitor has been plugged in
     IDARG_OUT_MONITORARRIVAL ArrivalOut;
-    Status = IddCxMonitorArrival(monitors[ConnectorIndex]->Monitor, &ArrivalOut);
+    Status = IddCxMonitorArrival(monitors[connectorIndex]->Monitor, &ArrivalOut);
 }
 
-IndirectMonitorContext::IndirectMonitorContext(_In_ IDDCX_MONITOR Monitor) :
-    Monitor(Monitor)
+IndirectMonitorContext::IndirectMonitorContext(_In_ IDDCX_MONITOR monitor) :
+    Monitor(monitor)
 {
 }
 

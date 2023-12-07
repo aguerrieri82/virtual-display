@@ -9,7 +9,7 @@ extern "C" {
 
 	#include <windows.h>
 
-	#define FFMPEG_LIB(a) "D:\\Development\\Library\\ffmpeg-h264-win64\\lib\\"a
+	#define FFMPEG_LIB(a) "..\\..\\lib\\ffmpeg-h264\\win64\\lib\\"a
 
 	#pragma comment (lib, FFMPEG_LIB("libavcodec"))
 	#pragma comment (lib, FFMPEG_LIB("libavutil"))
