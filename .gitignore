@@ -367,3 +367,6 @@ cmake_install.cmake
 CMakeFiles/
 CMakeCache.txt
 Makefile
+/src/VirtualDisplay.Unity.Sample/Library
+/src/VirtualDisplay.Unity.Sample/UserSettings
+/src/VirtualDisplay.Unity.Sample/Temp
