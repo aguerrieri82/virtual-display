@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "VirtualDisplay.App": {
-      "commandName": "Project",
-      "nativeDebugging": true
-    }
-  }
-}

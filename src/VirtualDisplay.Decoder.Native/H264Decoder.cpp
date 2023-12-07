@@ -54,8 +54,8 @@ void H264Decoder::Decode(uint8_t* srcBuffer, size_t srcBufferSize, uint8_t* dstB
 			(AVPixelFormat)frame->format, frame->width, frame->height,
 			AV_PIX_FMT_RGBA, 0, nullptr, nullptr, nullptr);
 
-		uint8_t* outData[1];
-		uint8_t* inData[8];
+		uint8_t* outData[1] = { dstBuffer };
+		uint8_t* inData[8] = {};
 		int outStride[1] = { frame->width * 4 };
 
 		for (int i = 0; i < 8; i++) {
@@ -63,8 +63,6 @@ void H264Decoder::Decode(uint8_t* srcBuffer, size_t srcBufferSize, uint8_t* dstB
 				break;
 			inData[i] = frame->buf[i]->data;
 		}
-
-		outData[0] = dstBuffer;
 
 		sws_scale(ctx, inData, frame->linesize, 0, frame->height, outData, outStride);
 

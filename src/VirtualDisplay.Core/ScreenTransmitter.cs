@@ -40,6 +40,8 @@ namespace VirtualDisplay.Core
 
                 Console.WriteLine("New Client");
 
+                bool headerSent = false;
+
                 try
                 {
                     while (true)
@@ -65,9 +67,15 @@ namespace VirtualDisplay.Core
                                 });
                                 _encoderInit = frame;
 
+                 
+                            }
+
+                            if (!headerSent)
+                            {
                                 binaryWriter.Write(0x80706050);
                                 binaryWriter.Write(frame.Width);
                                 binaryWriter.Write(frame.Height);
+                                headerSent = true;
                             }
 
                             _encoder.Convert(inFrame, outFrame);

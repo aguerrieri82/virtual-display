@@ -1,5 +1,7 @@
 #pragma once
 
+#define inline __inline
+
 extern "C" {
 	#include <libswscale/swscale.h>
 	#include <libavcodec/avcodec.h>
