@@ -93,7 +93,7 @@ public class StreamReceiver : MonoBehaviour
         {
             var size = _reader.ReadInt32();
 
-            Debug.Log($"New Frame size: {size}");
+            //Debug.Log($"New Frame size: {size}");
 
             var srcBuffer = _reader.ReadBytes(size);
 
