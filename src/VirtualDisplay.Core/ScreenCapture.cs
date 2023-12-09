@@ -40,8 +40,6 @@ namespace VirtualDisplay.Core
         byte[]? _buffer;
         int _lastFrame;
 
-
-
         public ScreenCapture()
         {
         }
@@ -81,6 +79,21 @@ namespace VirtualDisplay.Core
             _outDup = output.QueryInterface<Output6>().DuplicateOutput(_device);
 
             _lastFrame = -1;
+        }
+
+        public void Stop()
+        {
+            if (_outDup != null)
+            {
+                _outDup.Dispose();
+                _outDup = null;
+            }
+
+            if (_device != null)
+            {
+                _device.Dispose();
+                _device = null;
+            }
         }
 
         public Image? ReadImage()

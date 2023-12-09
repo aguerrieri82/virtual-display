@@ -9,42 +9,100 @@ using System.Threading.Tasks;
 
 namespace VirtualDisplay.Core
 {
+    public class EncodingSettings
+    {
+
+        public int Fps { get; set; }
+
+        public int BitRate { get; set; }
+
+        public int KeyFrameInterval { get; set; }
+
+        public H264Profile Profile { get; set; }
+
+        public int Level { get; set; }
+    }
+
     public class ScreenTransmitter
     {
         H264Encoder _encoder;
         ScreenCapture _screenCapture;
         Image? _encoderInit;
+        bool _isStarted;
+        protected TcpListener? _listener;
+        protected TcpClient? _client;
+        protected BinaryWriter? _writer;
 
         public ScreenTransmitter()
         {
             _encoder = new H264Encoder();
-            _screenCapture = new ScreenCapture();   
+            _screenCapture = new ScreenCapture();
 
         }
 
-        public void Start(ScreenInfo screen, int port)
+        public void Stop()
         {
+            if (!_isStarted)
+                return;
+
+            _isStarted = false;
+
+            if (_listener != null)
+            {
+                _listener.Stop();
+                _listener = null;
+            }
+
+            if (_client != null)
+            {
+                _client.Close();
+                _client = null;
+            }
+
+            if (_writer != null)
+            {
+                _writer.Close();
+                _writer = null;
+            }
+
+            _screenCapture.Stop();
+
+        }
+
+        public void Start(ScreenInfo screen, int port, EncodingSettings settings)
+        {
+            if (_isStarted)
+                return;
+
+            _isStarted = true;
+
             _screenCapture.Start(screen);
 
-            var listener = new TcpListener(IPAddress.Any, port);
-            listener.Start();
+            _listener = new TcpListener(IPAddress.Any, port);
+            _listener.Start();
 
-            while (true)
+            while (_isStarted)
             {
                 Console.WriteLine("Listening");
 
-                var client = listener.AcceptTcpClient();
-                var binaryWriter = new BinaryWriter(client.GetStream());
+                try
+                {
+                    _client = _listener.AcceptTcpClient();
+                    _writer = new BinaryWriter(_client.GetStream());
+                    _client.NoDelay = true;
 
-                client.NoDelay = true;
-
-                Console.WriteLine("New Client");
+                    Console.WriteLine("New Client");
+                }
+                catch
+                {
+                    continue;
+                }
 
                 bool headerSent = false;
 
                 try
                 {
-                    while (true)
+                    while (_client != null && _isStarted)
                     {
                         var frame = _screenCapture.ReadImage();
                         if (frame != null)
@@ -60,44 +118,54 @@ namespace VirtualDisplay.Core
                                 {
                                     Width = frame.Width,
                                     Height = frame.Height,
-                                    BitRate = 3000000,
+                                    BitRate = settings.BitRate,
                                     PixelFormat = PixelFormat.RGBA32,
-                                    Fps = 25,
+                                    Fps = settings.Fps,
+                                    KeyFrameInterval = settings.KeyFrameInterval,
+                                    Level = settings.Level,
+                                    Profile = settings.Profile,
                                     Stride = frame.Width * 4
                                 });
                                 _encoderInit = frame;
 
-                 
+
                             }
 
                             if (!headerSent)
                             {
-                                binaryWriter.Write(0x80706050);
-                                binaryWriter.Write(frame.Width);
-                                binaryWriter.Write(frame.Height);
+                                _writer.Write(0x80706050);
+                                _writer.Write(frame.Width);
+                                _writer.Write(frame.Height);
                                 headerSent = true;
                             }
 
                             _encoder.Convert(inFrame, outFrame);
 
-                            binaryWriter.Write(outFrame.ByteArray!.Length);
-                            binaryWriter.Write(outFrame.ByteArray);
+                            _writer.Write(outFrame.ByteArray!.Length);
+                            _writer.Write(outFrame.ByteArray);
 
-                            binaryWriter.Flush();
+                            _writer.Flush();
 
                             Console.WriteLine("Send Frame: {0}", outFrame.ByteArray!.Length);
 
-                            Thread.Sleep(40);
+                            Thread.Sleep(1000 / settings.Fps);
                         }
                     }
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("ERR: {0}", ex);
-                    client.Close();
-                    binaryWriter.Close();
+       
+                }
+                finally
+                {
+                    _client.Close();
+                    _writer.Close();
                 }
             }
+
+
         }
     }
 }

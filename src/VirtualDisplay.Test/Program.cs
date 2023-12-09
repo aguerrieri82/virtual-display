@@ -6,7 +6,7 @@ using VirtualDisplay.Unity;
 
 
 
-Tasks.CreateDisplay();
+Tasks.Transmit();
 
 Console.Read();
 

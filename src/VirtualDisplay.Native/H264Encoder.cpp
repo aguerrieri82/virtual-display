@@ -63,6 +63,7 @@ namespace VirtualDisplay {
 			CHECK_HR(hr, "Failed converter set MF_MT_SUBTYPE");
 			break;
 		default:
+			throw gcnew System::NotSupportedException(format->PixelFormat.ToString() + " not Supported");
 			break;
 		}
 
@@ -292,10 +293,10 @@ namespace VirtualDisplay {
 		hr = encOutType->SetGUID(MF_MT_SUBTYPE, MFVideoFormat_H264);
 		CHECK_HR(hr, "Failed to set MF_MT_SUBTYPE on H264 output media type");
 
-		hr = encOutType->SetUINT32(MF_MT_MPEG2_PROFILE, eAVEncH264VProfile::eAVEncH264VProfile_High);
+		hr = encOutType->SetUINT32(MF_MT_MPEG2_PROFILE, (UINT32)format->Profile);
 		CHECK_HR(hr, "Failed to set MF_MT_MPEG2_PROFILE on H264 output media type");
 
-		hr = encOutType->SetUINT32(MF_MT_MPEG2_LEVEL, eAVEncH264VLevel::eAVEncH264VLevel5);
+		hr = encOutType->SetUINT32(MF_MT_MPEG2_LEVEL, (UINT32)format->Level);
 		CHECK_HR(hr, "Failed to set MF_MT_MPEG2_LEVEL on H264 output media type");
 
 		hr = encOutType->SetUINT32(MF_MT_AVG_BITRATE, format->BitRate);
@@ -316,7 +317,7 @@ namespace VirtualDisplay {
 		hr = MFSetAttributeRatio(encOutType, MF_MT_PIXEL_ASPECT_RATIO, 1, 1);
 		CHECK_HR(hr, "Failed to set MF_MT_PIXEL_ASPECT_RATIO on H.264 encoder MFT");
 
-		hr = encOutType->SetUINT32(MF_MT_MAX_KEYFRAME_SPACING, 10);
+		hr = encOutType->SetUINT32(MF_MT_MAX_KEYFRAME_SPACING, (UINT32)format->KeyFrameInterval);
 		CHECK_HR(hr, "Failed to set MF_MT_MAX_KEYFRAME_SPACING on H.264 encoder MFT");
 
 

@@ -16,7 +16,28 @@ namespace VirtualDisplay.Test
 
             var monitors = ScreenCapture.EnumScreens();
 
-            _ = Task.Run(() => trans.Start(monitors[0], 6666));
+            while (true)
+            {
+                _ = Task.Run(() => trans.Start(monitors[0], 6666, new EncodingSettings
+                {
+                    BitRate = 2000000,
+                    Fps = 30,
+                    KeyFrameInterval = 25,
+                    Level = 50,
+                    Profile = H264Profile.High
+                }));
+
+                Console.WriteLine("Press E to exit");
+                var key = Console.ReadKey();
+
+                trans.Stop();
+
+                if (key.Key == ConsoleKey.E)
+                    break;
+            }
+
+
+
         }
 
         public static void CreateDisplay()
@@ -46,8 +67,8 @@ namespace VirtualDisplay.Test
                 }
             }
 
-            //var logThread = new Thread(LogLoop);
-            //logThread.Start();
+            var logThread = new Thread(LogLoop);
+            logThread.Start();
 
 
             var display = new VirtualDisplayManager();
